@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HXGN | Inventario Vehículos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1>HXGN Inventario</h1>
+      <p>Visualización de vehículos conectada a API</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="cards">
+      <div class="card">
+        <span class="label">Total vehículos</span>
+        <strong id="totalVehiculos">0</strong>
+      </div>
+      <div class="card">
+        <span class="label">API</span>
+        <strong id="estadoApi">Conectando...</strong>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Vehículos</h2>
+        <button id="btnRecargar">Recargar</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nro Interno</th>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Empresa</th>
+              <th>Tipo Equipo</th>
+              <th>Categoría</th>
+              <th>Faena</th>
+              <th>Ubicación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tablaVehiculos">
+            <tr>
+              <td colspan="11" class="loading">Cargando datos...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
