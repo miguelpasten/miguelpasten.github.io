@@ -5,10 +5,22 @@ const totalVehiculos = document.getElementById("totalVehiculos");
 const estadoApi = document.getElementById("estadoApi");
 const btnRecargar = document.getElementById("btnRecargar");
 
+function badgeClase(valor) {
+  if (valor === "INSTALAR") return "badge badge-instalar";
+  if (valor === "DESINSTALAR") return "badge badge-desinstalar";
+  if (valor === "NO_APLICA") return "badge badge-noaplica";
+  return "badge";
+}
+
+function badgeHtml(valor) {
+  if (!valor) return `<span class="badge">-</span>`;
+  return `<span class="${badgeClase(valor)}">${valor.replace("_", " ")}</span>`;
+}
+
 async function cargarVehiculos() {
   tablaVehiculos.innerHTML = `
     <tr>
-      <td colspan="11" class="loading">Cargando datos...</td>
+      <td colspan="14" class="loading">Cargando datos...</td>
     </tr>
   `;
 
@@ -30,7 +42,7 @@ async function cargarVehiculos() {
     if (!result.data || result.data.length === 0) {
       tablaVehiculos.innerHTML = `
         <tr>
-          <td colspan="11" class="empty">No hay vehículos registrados.</td>
+          <td colspan="14" class="empty">No hay vehículos registrados.</td>
         </tr>
       `;
       return;
@@ -46,6 +58,9 @@ async function cargarVehiculos() {
         <td>${v.empresa ?? "-"}</td>
         <td>${v.tipo_equipo ?? "-"}</td>
         <td>${v.categoria ?? "-"}</td>
+        <td>${badgeHtml(v.cas)}</td>
+        <td>${badgeHtml(v.fms)}</td>
+        <td>${badgeHtml(v.oas)}</td>
         <td>${v.faena ?? "-"}</td>
         <td>${v.ubicacion_actual ?? "-"}</td>
         <td>${v.estado_general ?? "-"}</td>
@@ -61,7 +76,7 @@ async function cargarVehiculos() {
 
     tablaVehiculos.innerHTML = `
       <tr>
-        <td colspan="11" class="error">
+        <td colspan="14" class="error">
           No se pudo cargar la información desde la API.
         </td>
       </tr>
