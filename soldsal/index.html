@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitudes por Equipo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(180deg, #eef2f7 0%, #f7f9fc 100%);
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1450px;
+      margin: 24px auto;
+      padding: 0 18px 32px;
+    }
+    .topbar {
+      background: #ffffff;
+      border: 1px solid #dbe3ee;
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, 0.06);
+      margin-bottom: 18px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .title-wrap { flex: 1; }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+      color: #0f172a;
+    }
+    .sub {
+      margin: 5px 0 0;
+      color: #475569;
+      font-size: 14px;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid #d9e2ec;
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-weight: 700;
+    }
+    .card p {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .solicitud {
+      background: #ffffff;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #dbe3ee;
+      overflow: hidden;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, 0.05);
+    }
+    .solicitud-header {
+      background: linear-gradient(90deg, #111827 0%, #1e293b 100%);
+      color: white;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .solicitud-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .badge {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1200px;
+    }
+    thead th {
+      background: #f8fafc;
+      padding: 12px 10px;
+      text-align: left;
+      font-size: 12px;
+      color: #334155;
+      border-bottom: 1px solid #dbe3ee;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+    tbody td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #e8eef5;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tbody tr:hover { background: #f8fbff; }
+    .muted { color: #94a3b8; }
+    .tag {
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-block;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    .instalar {
+      background: #e8f7ee;
+      color: #166534;
+      border-color: #b8e2c5;
+    }
+    .desinstalar {
+      background: #fdecec;
+      color: #b42318;
+      border-color: #f3b8b8;
+    }
+    .instalado {
+      background: #e6f0ff;
+      color: #1d4ed8;
+      border-color: #bfd3ff;
+    }
+    .no-aplica {
+      background: #eef2f6;
+      color: #475569;
+      border-color: #d5dde7;
+    }
+    .obs-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.5;
+    }
+    .obs-list li { margin-bottom: 4px; }
+    .backend-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      color: #475569;
+      font-size: 13px;
+    }
+    @media (max-width: 780px) {
+      .header { align-items: flex-start; }
+      .logo { height: 52px; }
+      h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="header">
+        <img src="hex_logo_blk.png" class="logo" alt="Hexagon" />
+        <div class="title-wrap">
+          <h1>Solicitudes</h1>
+          <p class="sub">Vista de referencia no editable. La mantención de datos se realizará desde backend.</p>
+        </div>
+      </div>
+
+      <section class="summary">
+        <div class="card">
+          <h3>Solicitudes</h3>
+          <p>4</p>
+        </div>
+        <div class="card">
+          <h3>Equipos Involucrados</h3>
+          <p>11</p>
+        </div>
+        <div class="card">
+          <h3>Acciones</h3>
+          <p>Instalar / Desinstalar / No aplica</p>
+        </div>
+      </section>
+
+      <div class="backend-note">
+        Esta versión ya no permite edición directa en el navegador. Los cambios deberán venir desde base de datos o desde el backend.
+      </div>
+    </div>
+
+    <section class="solicitud">
+      <div class="solicitud-header">
+        <h2>Solicitud 1</h2>
+        <span class="badge">1 equipo</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cant.</th>
+              <th>Nro Interno</th>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Tipo</th>
+              <th>Empresa</th>
+              <th>CAS</th>
+              <th>FMS</th>
+              <th>OAS</th>
+              <th>Observaciones / Estado detallado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>CE330</td>
+              <td class="muted">—</td>
+              <td>Caterpillar</td>
+              <td>777F</td>
+              <td>CAEX</td>
+              <td>Tepsac</td>
+              <td><span class="tag desinstalar">Desinstalar</span></td>
+              <td><span class="tag no-aplica">No aplica</span></td>
+              <td><span class="tag no-aplica">No aplica</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Ubicación: Taller Tepsac.</li>
+                  <li>Estado vehículo: Inactivo.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="solicitud">
+      <div class="solicitud-header">
+        <h2>Solicitud 2</h2>
+        <span class="badge">1 equipo</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cant.</th>
+              <th>Nro Interno</th>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Tipo</th>
+              <th>Empresa</th>
+              <th>CAS</th>
+              <th>FMS</th>
+              <th>OAS</th>
+              <th>Observaciones / Estado detallado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td class="muted">—</td>
+              <td class="muted">—</td>
+              <td>Komatsu</td>
+              <td>PC8000</td>
+              <td>Pala</td>
+              <td>Por definir</td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Estado vehículo: Inactivo.</li>
+                  <li>Ubicación pendiente de confirmar.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="solicitud">
+      <div class="solicitud-header">
+        <h2>Solicitud 3</h2>
+        <span class="badge">5 equipos</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cant.</th>
+              <th>Nro Interno</th>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Tipo</th>
+              <th>Empresa</th>
+              <th>CAS</th>
+              <th>FMS</th>
+              <th>OAS</th>
+              <th>Observaciones / Estado detallado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td class="muted">—</td>
+              <td class="muted">—</td>
+              <td>Komatsu</td>
+              <td>D475-8R</td>
+              <td>Tractor Oruga</td>
+              <td>Por definir</td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Estado vehículo: Inactivo.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="muted">—</td>
+              <td class="muted">—</td>
+              <td>Komatsu</td>
+              <td>GD955-7EO</td>
+              <td>Motoniveladora</td>
+              <td>Por definir</td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Ubicación: Truck Shop.</li>
+                  <li>Estado vehículo: Inactivo.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="muted">—</td>
+              <td class="muted">—</td>
+              <td>Komatsu</td>
+              <td>HD785-7WT</td>
+              <td>Aljibes</td>
+              <td>Por definir</td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Ubicación: Truck Shop.</li>
+                  <li>Estado vehículo: Inactivo.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="solicitud">
+      <div class="solicitud-header">
+        <h2>Solicitud 4</h2>
+        <span class="badge">4 equipos</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cant.</th>
+              <th>Nro Interno</th>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Tipo</th>
+              <th>Empresa</th>
+              <th>CAS</th>
+              <th>FMS</th>
+              <th>OAS</th>
+              <th>Observaciones / Estado detallado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>ECO-1101</td>
+              <td>TDYG73</td>
+              <td>Nissan</td>
+              <td>Navara</td>
+              <td>Camioneta</td>
+              <td>Resk</td>
+              <td><span class="tag instalado">Instalado</span></td>
+              <td><span class="tag no-aplica">No aplica</span></td>
+              <td><span class="tag no-aplica">No aplica</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Estado vehículo: Activo.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>BUS-4302, BUS-4303, BUS-4306</td>
+              <td>VPSJ58, VPSJ66, VPSJ77</td>
+              <td>Mercedes Benz</td>
+              <td>Sprinter</td>
+              <td>Minibus</td>
+              <td>Tandem</td>
+              <td><span class="tag instalar">Instalar</span></td>
+              <td><span class="tag no-aplica">No aplica</span></td>
+              <td><span class="tag no-aplica">No aplica</span></td>
+              <td>
+                <ul class="obs-list">
+                  <li>Faena: DSAL.</li>
+                  <li>Estado vehículo: Activo.</li>
+                  <li>Equipos considerados: BUS-4302, BUS-4303 y BUS-4306.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
