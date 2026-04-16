@@ -3,60 +3,172 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HXGN | Inventario Vehículos</title>
+  <title>HXGN | Dashboard de Vehículos</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="container">
-      <h1>HXGN Inventario</h1>
-      <p>Visualización de vehículos conectada a API</p>
+      <div class="topbar-content">
+        <div>
+          <h1>HXGN Inventario</h1>
+          <p>Dashboard operacional de vehículos y solicitudes por sistema</p>
+        </div>
+        <div class="topbar-status">
+          <span class="status-dot"></span>
+          <span id="estadoApi">Conectando...</span>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="cards">
-      <div class="card">
-        <span class="label">Total vehículos</span>
+    <section class="kpis">
+      <div class="kpi-card">
+        <span class="kpi-label">Total vehículos</span>
         <strong id="totalVehiculos">0</strong>
       </div>
-      <div class="card">
-        <span class="label">API</span>
-        <strong id="estadoApi">Conectando...</strong>
+
+      <div class="kpi-card">
+        <span class="kpi-label">CAS - Instalar</span>
+        <strong id="casInstalar">0</strong>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">FMS - Instalar</span>
+        <strong id="fmsInstalar">0</strong>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">OAS - Instalar</span>
+        <strong id="oasInstalar">0</strong>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">Desinstalaciones</span>
+        <strong id="totalDesinstalar">0</strong>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">No aplica</span>
+        <strong id="totalNoAplica">0</strong>
+      </div>
+    </section>
+
+    <section class="panel filters-panel">
+      <div class="panel-header">
+        <h2>Filtros</h2>
+        <div class="panel-actions">
+          <button id="btnLimpiar">Limpiar filtros</button>
+          <button id="btnRecargar">Recargar</button>
+        </div>
+      </div>
+
+      <div class="filters-grid">
+        <div class="filter-item">
+          <label for="buscarTexto">Buscar</label>
+          <input type="text" id="buscarTexto" placeholder="Nro interno, marca, modelo, empresa..." />
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroEmpresa">Empresa</label>
+          <select id="filtroEmpresa">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroCategoria">Categoría</label>
+          <select id="filtroCategoria">
+            <option value="">Todas</option>
+            <option value="LIVIANO">LIVIANO</option>
+            <option value="PESADO">PESADO</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroTipoEquipo">Tipo equipo</label>
+          <select id="filtroTipoEquipo">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroCas">CAS</label>
+          <select id="filtroCas">
+            <option value="">Todos</option>
+            <option value="INSTALAR">INSTALAR</option>
+            <option value="DESINSTALAR">DESINSTALAR</option>
+            <option value="NO_APLICA">NO_APLICA</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroFms">FMS</label>
+          <select id="filtroFms">
+            <option value="">Todos</option>
+            <option value="INSTALAR">INSTALAR</option>
+            <option value="DESINSTALAR">DESINSTALAR</option>
+            <option value="NO_APLICA">NO_APLICA</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroOas">OAS</label>
+          <select id="filtroOas">
+            <option value="">Todos</option>
+            <option value="INSTALAR">INSTALAR</option>
+            <option value="DESINSTALAR">DESINSTALAR</option>
+            <option value="NO_APLICA">NO_APLICA</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label for="filtroEstado">Estado vehículo</label>
+          <select id="filtroEstado">
+            <option value="">Todos</option>
+            <option value="ACTIVO">ACTIVO</option>
+            <option value="INACTIVO">INACTIVO</option>
+            <option value="MANTENCION">MANTENCION</option>
+            <option value="BAJA">BAJA</option>
+          </select>
+        </div>
       </div>
     </section>
 
     <section class="panel">
       <div class="panel-header">
         <h2>Vehículos</h2>
-        <button id="btnRecargar">Recargar</button>
+        <div class="results-summary">
+          Mostrando <strong id="totalFiltrados">0</strong> registros
+        </div>
       </div>
 
       <div class="table-wrap">
         <table>
-            <thead>
-               <tr>
-                <th>ID</th>
-                <th>Nro Interno</th>
-                <th>Patente</th>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Empresa</th>
-                <th>Tipo Equipo</th>
-                <th>Categoría</th>
-                <th>CAS</th>
-                <th>FMS</th>
-                <th>OAS</th>
-                <th>Faena</th>
-                <th>Ubicación</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-      <tbody id="tablaVehiculos">
-        <tr>
-          <td colspan="14" class="loading">Cargando datos...</td>
-        </tr>
-      </tbody>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nro Interno</th>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Empresa</th>
+              <th>Tipo Equipo</th>
+              <th>Categoría</th>
+              <th>CAS</th>
+              <th>FMS</th>
+              <th>OAS</th>
+              <th>Faena</th>
+              <th>Ubicación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tablaVehiculos">
+            <tr>
+              <td colspan="14" class="loading">Cargando datos...</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </section>
