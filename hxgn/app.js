@@ -1,5 +1,10 @@
 const API_URL = "https://r0x.cl/api-hxgn/vehiculos.php";
 
+const modalDetalle = document.getElementById("modalDetalle");
+const modalTitulo = document.getElementById("modalTitulo");
+const modalBody = document.getElementById("modalBody");
+const btnCerrarModal = document.getElementById("btnCerrarModal");
+
 const tablaVehiculos = document.getElementById("tablaVehiculos");
 const totalVehiculos = document.getElementById("totalVehiculos");
 const totalFiltrados = document.getElementById("totalFiltrados");
@@ -150,6 +155,11 @@ function renderTabla(data) {
       <td>${v.faena ?? "-"}</td>
       <td>${v.ubicacion_actual ?? "-"}</td>
       <td>${v.estado_general ?? "-"}</td>
+      <td>
+          <button onclick="abrirDetalle('${v.id_vehiculo}')">
+          Ver detalle
+          </button>
+      </td>
     </tr>
   `).join("");
 }
