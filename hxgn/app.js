@@ -1,4 +1,5 @@
 const API_URL = "https://r0x.cl/api-hxgn/vehiculos.php";
+const API_DETALLE_URL = "https://r0x.cl/api-hxgn/detalle_vehiculo.php";
 
 const modalDetalle = document.getElementById("modalDetalle");
 const modalTitulo = document.getElementById("modalTitulo");
@@ -242,32 +243,88 @@ btnLimpiar.addEventListener("click", () => {
   aplicarFiltros();
 });
 
-function abrirDetalle(idVehiculo) {
-  const v = vehiculosOriginales.find(item => item.id_vehiculo == idVehiculo);
-
-  if (!v) return;
-
-  modalTitulo.textContent = `${v.nro_interno} - ${v.marca} ${v.modelo}`;
-
-  modalBody.innerHTML = `
-    <p><strong>Empresa:</strong> ${v.empresa}</p>
-    <p><strong>Tipo:</strong> ${v.tipo_equipo}</p>
-    <p><strong>Categoría:</strong> ${v.categoria}</p>
-    <p><strong>Faena:</strong> ${v.faena}</p>
-    <p><strong>Estado:</strong> ${v.estado_general}</p>
-
-    <hr>
-
-    <p><strong>CAS:</strong> ${v.cas}</p>
-    <p><strong>FMS:</strong> ${v.fms}</p>
-    <p><strong>OAS:</strong> ${v.oas}</p>
-
-    <hr>
-
-    <p><strong>Componentes activos:</strong> ${v.componentes_activos}</p>
-  `;
-
+async function abrirDetalle(idVehiculo) {
+  modalTitulo.textContent = "Cargando detalle...";
+  modalBody.innerHTML = `<p class="loading">Consultando componentes del equipo...</p>`;
   modalDetalle.style.display = "flex";
+
+  try {
+    const response = await fetch(`${API_DETALLE_URL}?id=${idVehiculo}`);
+    const result = await response.json();
+
+    if (!result.ok) {
+      throw new Error(result.error || "Error al consultar detalle");
+    }
+
+    const v = result.vehiculo;
+    const componentes = result.componentes || [];
+
+    const porSistema = {
+      CAS: componentes.filter(c => c.sistema === "CAS"),
+      FMS: componentes.filter(c => c.sistema === "FMS"),
+      OAS: componentes.filter(c => c.sistema === "OAS")
+    };
+
+    modalTitulo.textContent = `${v.nro_interno} - ${v.marca} ${v.modelo}`;
+
+    modalBody.innerHTML = `
+      <div class="modal-resumen">
+        <div>
+          <span>Empresa</span>
+          <strong>${v.empresa ?? "-"}</strong>
+        </div>
+        <div>
+          <span>Tipo</span>
+          <strong>${v.tipo_equipo ?? "-"}</strong>
+        </div>
+        <div>
+          <span>Faena</span>
+          <strong>${v.faena ?? "-"}</strong>
+        </div>
+        <div>
+          <span>Estado</span>
+          <strong>${v.estado_general ?? "-"}</strong>
+        </div>
+      </div>
+
+      ${v.observaciones ? `<div class="modal-alerta">${v.observaciones}</div>` : ""}
+
+      <div class="componentes-layout">
+        ${renderSistemaDetalle("CAS", porSistema.CAS)}
+        ${renderSistemaDetalle("FMS", porSistema.FMS)}
+        ${renderSistemaDetalle("OAS", porSistema.OAS)}
+      </div>
+    `;
+
+  } catch (error) {
+    console.error(error);
+    modalTitulo.textContent = "Error";
+    modalBody.innerHTML = `<p class="error">No se pudo cargar el detalle del vehículo.</p>`;
+  }
+}
+
+function renderSistemaDetalle(nombreSistema, componentes) {
+  const items = componentes.length
+    ? componentes.map(c => `
+        <div class="componente-item">
+          <div>
+            <strong>${c.tipo_componente}</strong>
+            <span>${c.serie || c.codigo_interno || "-"}</span>
+          </div>
+          <small>${c.estado_logistico ?? "-"}</small>
+        </div>
+      `).join("")
+    : `<p class="sin-componentes">Sin componentes registrados</p>`;
+
+  return `
+    <section class="sistema-card">
+      <div class="sistema-card-header">
+        <h3>${nombreSistema}</h3>
+        <span>${componentes.length}</span>
+      </div>
+      ${items}
+    </section>
+  `;
 }
 
 btnCerrarModal.addEventListener("click", () => {
