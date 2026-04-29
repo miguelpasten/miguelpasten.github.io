@@ -169,18 +169,28 @@
               <th>Faena</th>
               <th>Ubicación</th>
               <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody id="tablaVehiculos">
             <tr>
-              <td colspan="14" class="loading">Cargando datos...</td>
+              <td colspan="16" class="loading">Cargando datos...</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
   </main>
+<div id="modalDetalle" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitulo">Detalle vehículo</h2>
+      <button id="btnCerrarModal" class="btn-cerrar">×</button>
+    </div>
 
+    <div id="modalBody" class="modal-body"></div>
+  </div>
+</div>
   <script src="app.js"></script>
 </body>
 </html>
