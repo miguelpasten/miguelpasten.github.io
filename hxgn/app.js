@@ -185,7 +185,7 @@ async function cargarVehiculos() {
 
     vehiculosOriginales = result.data || [];
 
-    estadoApi.textContent = "Conectada";
+    estadoApi.textContent = "API Conectada";
     estadoApi.className = "estado-ok";
 
     actualizarFiltrosDinamicos(vehiculosOriginales);
