@@ -242,4 +242,42 @@ btnLimpiar.addEventListener("click", () => {
   aplicarFiltros();
 });
 
+function abrirDetalle(idVehiculo) {
+  const v = vehiculosOriginales.find(item => item.id_vehiculo == idVehiculo);
+
+  if (!v) return;
+
+  modalTitulo.textContent = `${v.nro_interno} - ${v.marca} ${v.modelo}`;
+
+  modalBody.innerHTML = `
+    <p><strong>Empresa:</strong> ${v.empresa}</p>
+    <p><strong>Tipo:</strong> ${v.tipo_equipo}</p>
+    <p><strong>Categoría:</strong> ${v.categoria}</p>
+    <p><strong>Faena:</strong> ${v.faena}</p>
+    <p><strong>Estado:</strong> ${v.estado_general}</p>
+
+    <hr>
+
+    <p><strong>CAS:</strong> ${v.cas}</p>
+    <p><strong>FMS:</strong> ${v.fms}</p>
+    <p><strong>OAS:</strong> ${v.oas}</p>
+
+    <hr>
+
+    <p><strong>Componentes activos:</strong> ${v.componentes_activos}</p>
+  `;
+
+  modalDetalle.style.display = "block";
+}
+
+btnCerrarModal.addEventListener("click", () => {
+  modalDetalle.style.display = "none";
+});
+
+modalDetalle.addEventListener("click", (e) => {
+  if (e.target === modalDetalle) {
+    modalDetalle.style.display = "none";
+  }
+});
+
 cargarVehiculos();
