@@ -267,7 +267,7 @@ function abrirDetalle(idVehiculo) {
     <p><strong>Componentes activos:</strong> ${v.componentes_activos}</p>
   `;
 
-  modalDetalle.style.display = "block";
+  modalDetalle.style.display = "flex";
 }
 
 btnCerrarModal.addEventListener("click", () => {
