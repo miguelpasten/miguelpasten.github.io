@@ -274,10 +274,4 @@ btnCerrarModal.addEventListener("click", () => {
   modalDetalle.style.display = "none";
 });
 
-modalDetalle.addEventListener("click", (e) => {
-  if (e.target === modalDetalle) {
-    modalDetalle.style.display = "none";
-  }
-});
-
 cargarVehiculos();
