@@ -127,7 +127,7 @@ function renderTabla(data) {
   if (!data || data.length === 0) {
     tablaVehiculos.innerHTML = `
       <tr>
-        <td colspan="14" class="empty">No hay resultados para los filtros seleccionados.</td>
+        <td colspan="15" class="empty">No hay resultados para los filtros seleccionados.</td>
       </tr>
     `;
     return;
@@ -146,6 +146,7 @@ function renderTabla(data) {
       <td>${badgeHtml(v.cas)}</td>
       <td>${badgeHtml(v.fms)}</td>
       <td>${badgeHtml(v.oas)}</td>
+      <td><strong>${v.componentes_activos ?? 0}</strong></td>
       <td>${v.faena ?? "-"}</td>
       <td>${v.ubicacion_actual ?? "-"}</td>
       <td>${v.estado_general ?? "-"}</td>
@@ -156,7 +157,7 @@ function renderTabla(data) {
 async function cargarVehiculos() {
   tablaVehiculos.innerHTML = `
     <tr>
-      <td colspan="14" class="loading">Cargando datos...</td>
+      <td colspan="15" class="loading">Cargando datos...</td>
     </tr>
   `;
 
@@ -195,7 +196,7 @@ async function cargarVehiculos() {
 
     tablaVehiculos.innerHTML = `
       <tr>
-        <td colspan="14" class="error">
+        <td colspan="15" class="error">
           No se pudo cargar la información desde la API.
         </td>
       </tr>
