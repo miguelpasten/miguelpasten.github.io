@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
 @author: Miguel Pastén D. 
-version: b.110 - FULL DATA RESTORE + Mejoras de UI final
+version: b.110 - FULL DATA RESTORE + INTEGRACIÓN FINAL
 -->
 <html lang="es">
 <head>
@@ -121,7 +121,7 @@ version: b.110 - FULL DATA RESTORE + Mejoras de UI final
     <div class="topbar">
         <div>
             <h2 style="margin:0;">Sistema de Gestión de Solicitudes</h2>
-            <p style="margin:0; color: var(--secondary);">Resumen Operativo de Proyectos</p>
+            <p style="margin:0; color: var(--secondary);">Resumen Operativo de Proyectos - Full Data Restore</p>
         </div>
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hexagon_logo.svg" class="logo-hexagon" alt="Hexagon">
     </div>
@@ -129,33 +129,33 @@ version: b.110 - FULL DATA RESTORE + Mejoras de UI final
     <div class="dashboard-grid">
         <div class="stat-card">
             <span class="label">Flota Monitoreada</span>
-            <span class="value">19 Equipos</span>
+            <span class="value">21 Equipos Total</span>
         </div>
         <div class="stat-card">
-            <span class="label">Hito Geodetec</span>
-            <span class="value">Semana 20</span>
+            <span class="label">Estado de Instalaciones</span>
+            <span class="value">05 Pendientes Proyecto</span>
         </div>
         <div class="stat-card">
-            <span class="label">Próxima Visita</span>
-            <span class="value">13 Mayo - PC8000</span>
+            <span class="label">Próxima Visita Técnica</span>
+            <span class="value">13 Mayo (PC8000)</span>
         </div>
     </div>
 
-    <!-- SOLICITUD 1 -->
+    <!-- SOLICITUD 1: INSTALACIONES PROYECTO -->
     <div class="solicitud-card">
-        <div class="solicitud-title"><span>INSTALACIONES PROYECTO</span><span class="priority-badge">ALTA PRIORIDAD</span></div>
+        <div class="solicitud-title"><span>INSTALACIONES PROYECTO (CODELCO)</span><span class="priority-badge">ALTA PRIORIDAD</span></div>
         <div class="table-container">
             <table>
                 <thead>
-                    <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones</th></tr>
+                    <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones / Ubicación</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>TO1406</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">D475-8R</span></td><td>Tractor Oruga</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>Regularizar Pre-Instalación</td></tr>
-                    <tr><td>MO1704</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td><td>Motoniveladora</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>Regularizar Pre-Instalación</td></tr>
-                    <tr><td>MO1703</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td><td>Motoniveladora</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>Sin Kit Re-inst CAS</td></tr>
-                    <tr><td>ALJ1802</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">HD785-7WT</span></td><td>Aljibe</td><td>Codelco</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-ok">Instalado</span></td><td>ENTREGADO 04-05-2026</td></tr>
+                    <tr><td>TO1406</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">D475-8R</span></td><td>Tractor Oruga</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>Truckshop. Regularizar Pre-Inst. | <strong>Sin Kit CAS</strong></td></tr>
+                    <tr><td>MO1704</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td><td>Motoniveladora</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>Truckshop. Regularizar Pre-Instalación - Proyecto</td></tr>
+                    <tr><td>MO1703</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td><td>Motoniveladora</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>Truckshop. Regularizar Pre-Inst. | <strong>Sin Kit CAS</strong></td></tr>
+                    <tr><td>ALJ1802</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">HD785-7WT</span></td><td>Aljibe</td><td>Codelco</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-ok">Instalado</span></td><td><strong>OK (04-05-2026)</strong>. Pendiente validación y post-inst.</td></tr>
                     <tr><td>ALJ1803</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">HD785-7WT</span></td><td>Aljibe</td><td>Codelco</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-instalar">Instalar</span></td><td>
-                        INSTALANDO (95%)
+                        AVANCE 95% (06-05-2026). Pend. Validación Final.
                         <div class="progress-container"><div class="progress-bar" style="width: 95%;"></div></div>
                     </td></tr>
                 </tbody>
@@ -163,104 +163,104 @@ version: b.110 - FULL DATA RESTORE + Mejoras de UI final
         </div>
     </div>
 
-    <!-- SOLICITUD 2 -->
+    <!-- SOLICITUD 2: DESINSTALAR CONTRATO -->
     <div class="solicitud-card">
-        <div class="solicitud-title" style="background:#334155"><span>DESINSTALAR CONTRATO</span><span class="priority-badge" style="background:#64748b">PROGRAMADO</span></div>
+        <div class="solicitud-title" style="background:#334155"><span>DESINSTALAR CONTRATO TEPSAC (CAS)</span><span class="priority-badge" style="background:#64748b">PROGRAMADO</span></div>
         <div class="table-container">
             <table>
                 <thead>
                     <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>ALJ612</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">KOMATSU</span><span class="model">HD785</span></td><td>Aljibe</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente</td></tr>
-                    <tr><td>ALJ617</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">KOMATSU</span><span class="model">HD785</span></td><td>Aljibe</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente</td></tr>
-                    <tr><td>MO512</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">16M</span></td><td>Motoniveladora</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente</td></tr>
-                    <tr><td>MO519</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">14M</span></td><td>Motoniveladora</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente</td></tr>
-                    <tr><td>TO304</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">D10</span></td><td>Bulldozer</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente</td></tr>
+                    <tr><td>ALJ612</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">KOMATSU</span><span class="model">HD785</span></td><td>Aljibe</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente retiro de componentes</td></tr>
+                    <tr><td>ALJ617</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">KOMATSU</span><span class="model">HD785</span></td><td>Aljibe</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente retiro de componentes</td></tr>
+                    <tr><td>MO512</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">16M</span></td><td>Motoniveladora</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente retiro de componentes</td></tr>
+                    <tr><td>MO519</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">14M</span></td><td>Motoniveladora</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente retiro de componentes</td></tr>
+                    <tr><td>TO304</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">D10</span></td><td>Bulldozer</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Pendiente retiro de componentes</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- SOLICITUD 3 -->
+    <!-- SOLICITUD 3: DESINSTALACIÓN CAEX -->
     <div class="solicitud-card">
-        <div class="solicitud-title" style="background:#475569"><span>DESINSTALAR</span><span class="priority-badge" style="background:#16a34a">EN CURSO</span></div>
+        <div class="solicitud-title" style="background:#475569"><span>DESINSTALACIÓN EQUIPOS CAEX</span><span class="priority-badge" style="background:#16a34a">EN CURSO</span></div>
         <div class="table-container">
             <table>
                 <thead>
                     <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>CE330</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">777F</span></td><td>CAEX</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Taller Tepsac</td></tr>
-                    <tr><td>CE101</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">777F</span></td><td>CAEX</td><td>Tepsac</td><td><span class="tag tag-ok">Desinstalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>FINALIZADO 29/04</td></tr>
+                    <tr><td>CE330</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">777F</span></td><td>CAEX</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td><strong>PENDIENTE</strong>: Ubicado en Taller Tepsac</td></tr>
+                    <tr><td>CE101</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Caterpillar</span><span class="model">777F</span></td><td>CAEX</td><td>Tepsac</td><td><span class="tag tag-ok">Desinstalado</span></td><td><span class="tag tag-ok">Desinstalado</span></td><td><span class="tag tag-ok">Desinstalado</span></td><td><strong>FINALIZADO 29/04</strong> (CAS, FMS, OAS Retirados)</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- SOLICITUD 4 -->
+    <!-- SOLICITUD 4: PRE-INSTALACIÓN PALA -->
     <div class="solicitud-card">
-        <div class="solicitud-title" style="background:#1e293b"><span>PRE-INSTALACIÓN</span><span class="priority-badge" style="background:var(--accent)">COORDINACIÓN</span></div>
+        <div class="solicitud-title" style="background:#1e293b"><span>PRE-INSTALACIÓN PALA</span><span class="priority-badge" style="background:var(--accent)">COORDINACIÓN</span></div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones / Coordinación</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>POR DEFINIR</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">PC8000</span></td><td>Pala Hidráulica</td><td>Codelco</td><td><span class="tag tag-instalar">Evaluar</span></td><td><span class="tag tag-instalar">Evaluar</span></td><td><span class="tag tag-instalar">Evaluar</span></td><td><strong>Visita: 13-05 12:00</strong>. Contactos: M. Carvajal (OTC) / B. Zallini.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SOLICITUD 5: RE-INSTALACIONES GEODETEC -->
+    <div class="solicitud-card">
+        <div class="solicitud-title" style="background:#334155"><span>RE-INSTALACIONES FLOTA LIVIANA</span><span class="priority-badge" style="background:var(--warning); color:#000">SEMANA 20</span></div>
         <div class="table-container">
             <table>
                 <thead>
                     <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>POR DEF.</td><td><span class="tag tag-na">No Aplica</span></td><td><span class="brand">Komatsu</span><span class="model">PC8000</span></td><td>Pala</td><td>Codelco</td><td><span class="tag tag-instalar">Evaluar</span></td><td><span class="tag tag-instalar">Evaluar</span></td><td><span class="tag tag-instalar">Evaluar</span></td><td>Visita 13-05 12:00</td></tr>
+                    <tr><td>ECO-894</td><td><strong>RBZJ-95</strong></td><td><span class="brand">Mitsubishi</span><span class="model">L200</span></td><td>Camioneta</td><td>GEODETEC</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Desinstalación programada S19/S20</td></tr>
+                    <tr><td>ECO-1114</td><td><strong>VRRL-24</strong></td><td><span class="brand">TOYOTA</span><span class="model">HILUX</span></td><td>Camioneta</td><td>GEODETEC</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td><strong>Falta Kit de Reinstalación</strong></td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- SOLICITUD 5 -->
+    <!-- SOLICITUD 6: ENTREGADOS -->
     <div class="solicitud-card">
-        <div class="solicitud-title" style="background:#334155"><span>RE-INSTALACIONES</span><span class="priority-badge" style="background:var(--warning); color:#000">SEMANA 20</span></div>
+        <div class="solicitud-title" style="background:#064e3b"><span>HISTORIAL DE ENTREGAS</span><span class="priority-badge" style="background:#059669">COMPLETADO</span></div>
         <div class="table-container">
             <table>
                 <thead>
-                    <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>ECO-894</td><td><strong>RBZJ-95</strong></td><td><span class="brand">Mitsubishi</span><span class="model">L200</span></td><td>Camioneta</td><td>GEODETEC</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>S20</td></tr>
-                    <tr><td>ECO-1114</td><td><strong>VRRL-24</strong></td><td><span class="brand">TOYOTA</span><span class="model">HILUX</span></td><td>Camioneta</td><td>GEODETEC</td><td><span class="tag tag-instalar">Instalar</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>Sin Kit | S20</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- SOLICITUD 6 -->
-    <div class="solicitud-card">
-        <div class="solicitud-title" style="background:#064e3b"><span>ENTREGADOS</span><span class="priority-badge" style="background:#059669">COMPLETADO</span></div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Observaciones</th></tr>
+                    <tr><th>Nro Interno</th><th>Patente</th><th>Marca / Modelo</th><th>Tipo Equipo</th><th>Empresa</th><th>CAS</th><th>FMS</th><th>OAS</th><th>Fecha Entrega</th></tr>
                 </thead>
                 <tbody>
                     <tr><td>ECO-1101</td><td><strong>TDYG73</strong></td><td><span class="brand">Nissan</span><span class="model">Navara</span></td><td>Camioneta</td><td>Resk</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>ENTREGADO</td></tr>
-                    <tr><td>BUS-4302</td><td><strong>VPSJ58</strong></td><td><span class="brand">Mercedes</span><span class="model">Sprinter</span></td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>16/04</td></tr>
-                    <tr><td>BUS-4303</td><td><strong>VPSJ66</strong></td><td><span class="brand">Mercedes</span><span class="model">Sprinter</span></td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>17/04</td></tr>
-                    <tr><td>BUS-4306</td><td><strong>VPSJ77</strong></td><td><span class="brand">Mercedes</span><span class="model">Sprinter</span></td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>18/04</td></tr>
+                    <tr><td>BUS-4302</td><td><strong>VPSJ58</strong></td><td><span class="brand">Mercedes</span><span class="model">Sprinter</span></td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>16/04/2026</td></tr>
+                    <tr><td>BUS-4303</td><td><strong>VPSJ66</strong></td><td><span class="brand">Mercedes</span><span class="model">Sprinter</span></td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>17/04/2026</td></tr>
+                    <tr><td>BUS-4306</td><td><strong>VPSJ77</strong></td><td><span class="brand">Mercedes</span><span class="model">Sprinter</span></td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td><span class="tag tag-na">No Aplica</span></td><td><span class="tag tag-na">No Aplica</span></td><td>18/04/2026</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- OTRAS SOLICITUDES -->
+    <!-- OTRAS SOLICITUDES: SOPORTE Y LOGÍSTICA -->
     <div class="solicitud-card">
-        <div class="solicitud-title" style="background:#1e1e1e"><span>OTRAS SOLICITUDES</span><span class="priority-badge" style="background:#475569">SOPORTE</span></div>
+        <div class="solicitud-title" style="background:#1e1e1e"><span>SOPORTE TÉCNICO Y LOGÍSTICA</span><span class="priority-badge" style="background:#475569">RESUMEN</span></div>
         <div class="grid-otros">
-            <div class="task-card"><h4>Mantenimiento Preventivo</h4><p>S16: CAEX 111 (OK) | S17: CAEX 102 (OK)</p></div>
-            <div class="task-card"><h4>AMECO</h4><p>ALJ625 (Falta Kit) | Revisión Pluma (Pendiente)</p></div>
-            <div class="task-card" style="border-left-color: var(--success);"><h4>Config CAS 10</h4><p>ECO 1067, AUX-1226, 1282, 1281 (ENTREGADOS)</p></div>
-            <div class="task-card"><h4>GANT EMT / Logística</h4><p>Platinas MIES MO1702 | Pre-inst no revisadas</p></div>
-            <div class="task-card" style="border-left-color: var(--danger);"><h4>Incidentes / RMA</h4><p>Informes para firma GOT (En curso 04-05)</p></div>
-            <div class="task-card"><h4>Mantención LV</h4><p>PSINET: ECO-877/878 OK | RESK: CARRY OK (30/04)</p></div>
+            <div class="task-card"><h4>Mantenimiento Preventivo</h4><p>S16: CAEX 111 (OK 18/04) | S17: CAEX 102 (OK). Seguimiento de horómetros activo.</p></div>
+            <div class="task-card"><h4>Soporte AMECO</h4><p>ALJ625: Falta Kit CAS. Pendiente revisión de pluma y cambio de batería de camioneta.</p></div>
+            <div class="task-card" style="border-left-color: var(--success);"><h4>Configuraciones CAS 10</h4><p>ENTREGADOS: ECO 1067, AUX-1226 (Retro), AUX-1282, AUX-1281.</p></div>
+            <div class="task-card"><h4>Logística y GANT EMT</h4><p>MO1702: Espera de platinas MIES. Revisión de pre-instalaciones no validadas en GANT.</p></div>
+            <div class="task-card" style="border-left-color: var(--danger);"><h4>Incidentes / Documentación</h4><p>Informes RMA y firma de GOT (En curso 04-05-2026). Firma pendiente por jefe de turno.</p></div>
+            <div class="task-card"><h4>Mantenimiento Flota Liviana</h4><p>PSINET: ECO-877/878 (OK 19/04) | RESK: CARRY (OK 30/04). Todo operativo.</p></div>
         </div>
     </div>
 
-    <footer>HEXAGON MINING • 2026</footer>
+    <footer>HEXAGON MINING • 2026 • Generado por Miguel Pastén D.</footer>
 </div>
 </body>
 </html>
