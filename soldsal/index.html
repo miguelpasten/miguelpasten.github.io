@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
 @author: Miguel Pastén D. 
-version: b.080 - Dashboard + Estructura Original + Títulos Originales
+version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratégico
 -->
 <html lang="es">
 <head>
@@ -33,7 +33,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
         /* --- DASHBOARD HEADER --- */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -46,12 +46,14 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-card .label { color: var(--secondary); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        .stat-card .value { font-size: 24px; font-weight: 800; margin: 8px 0; }
-        .stat-card .trend { font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-        .trend.up { color: var(--success); }
+        .stat-card .value { font-size: 22px; font-weight: 800; margin: 8px 0; color: var(--primary); }
+        .stat-card .sub-value { font-size: 12px; color: var(--secondary); font-weight: 500; }
+        .stat-card .indicator { position: absolute; right: 20px; top: 20px; font-size: 20px; }
 
         /* --- SOLICITUD CARD --- */
         .solicitud-card {
@@ -68,20 +70,21 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
             color: white;
             padding: 14px 20px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            letter-spacing: 0.5px;
         }
 
         /* --- TABLAS --- */
         .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 1300px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1200px; }
         
         thead th {
             background: #f8fafc;
             color: var(--secondary);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             padding: 12px 15px;
@@ -95,19 +98,20 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
             vertical-align: middle;
         }
 
+        /* DISEÑO MARCA / MODELO */
+        .brand { font-weight: 700; color: var(--primary); display: block; }
+        .model { font-weight: 400; color: var(--secondary); font-size: 11.5px; margin-top: 2px; }
+
         /* --- TAGS & UI --- */
         .tag { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; display: inline-block; border: 1px solid transparent; }
         .tag-instalar { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
         .tag-desinstalar { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
         .tag-ok { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
-        .tag-na { background: #f1f5f9; color: #94a3b8; font-weight: 500; }
+        .tag-na { background: #f1f5f9; color: #94a3b8; font-weight: 600; border-color: #e2e8f0; }
         
-        .priority-badge { background: #dc2626; color: white; padding: 2px 10px; border-radius: 20px; font-size: 11px; display: flex; align-items: center; gap: 5px; }
+        .priority-badge { background: #dc2626; color: white; padding: 2px 10px; border-radius: 20px; font-size: 10px; display: flex; align-items: center; gap: 5px; font-weight: 700; }
 
         .alert-row { background: #fff7ed; border: 1px solid #ffedd5; color: #9a3412; padding: 6px 10px; margin-top: 5px; font-weight: 700; font-size: 11px; border-radius: 4px; display: inline-block; }
-
-        .progress-mini { width: 100%; background: #e2e8f0; border-radius: 10px; height: 6px; margin-top: 8px; }
-        .progress-fill { height: 100%; background: var(--success); border-radius: 10px; }
 
         /* --- OTRAS SOLICITUDES GRID --- */
         .grid-otros { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding: 25px; background: #f8fafc; }
@@ -115,7 +119,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
         .task-card h4 { margin: 0 0 10px 0; font-size: 14px; color: var(--primary); }
         .task-card p { margin: 0; color: #475569; font-size: 12.5px; line-height: 1.5; }
 
-        footer { text-align: center; padding: 40px; color: var(--secondary); font-size: 11px; }
+        footer { text-align: center; padding: 40px; color: var(--secondary); font-size: 11px; letter-spacing: 1px; }
 
     </style>
 </head>
@@ -123,27 +127,25 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
 
 <div class="container">
     
-    <!-- DASHBOARD DE ACTIVIDADES -->
+    <!-- DASHBOARD ESTRATÉGICO -->
     <div class="dashboard-grid">
         <div class="stat-card">
-            <span class="label">Resumen de Flota</span>
-            <span class="value">19 Equipos</span>
-            <span class="trend up">6 Solicitudes Activas</span>
+            <span class="indicator">🚛</span>
+            <span class="label">Control de Flota</span>
+            <span class="value">19 Unidades</span>
+            <span class="sub-value">6 Solicitudes Activas en Sistema</span>
         </div>
         <div class="stat-card">
-            <span class="label">Instalaciones en Curso</span>
-            <span class="value">74%</span>
-            <div class="progress-mini"><div class="progress-fill" style="width: 74%;"></div></div>
+            <span class="indicator">📅</span>
+            <span class="label">Hito Geodetec</span>
+            <span class="value">Semana 20</span>
+            <span class="sub-value" style="color: var(--accent);">Re-instalación Programada</span>
         </div>
         <div class="stat-card">
-            <span class="label">Próximos Hitos</span>
-            <span class="value">Semana 19</span>
-            <span class="trend" style="color:var(--accent)">Re-instalamiento Geodetec</span>
-        </div>
-        <div class="stat-card">
-            <span class="label">Último Reporte</span>
-            <span class="value">06 Mayo</span>
-            <span class="trend">17:00 Hrs Sincronizado</span>
+            <span class="indicator">📍</span>
+            <span class="label">Próxima Visita Técnica</span>
+            <span class="value">13 de Mayo</span>
+            <span class="sub-value">Pala Komatsu PC8000</span>
         </div>
     </div>
 
@@ -172,7 +174,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     <tr>
                         <td><strong>TO1406</strong></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>Komatsu D475-8R</td>
+                        <td><span class="brand">Komatsu</span><span class="model">D475-8R</span></td>
                         <td>Tractor Oruga</td>
                         <td>Codelco</td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
@@ -183,7 +185,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     <tr>
                         <td><strong>MO1704</strong></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>Komatsu GD955-7EO</td>
+                        <td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td>
                         <td>Motoniveladora</td>
                         <td>Codelco</td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
@@ -194,7 +196,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     <tr>
                         <td><strong>MO1703</strong></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>Komatsu GD955-7EO</td>
+                        <td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td>
                         <td>Motoniveladora</td>
                         <td>Codelco</td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
@@ -205,7 +207,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     <tr>
                         <td><strong>ALJ1802</strong></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>Komatsu HD785-7WT</td>
+                        <td><span class="brand">Komatsu</span><span class="model">HD785-7WT</span></td>
                         <td>Aljibe</td>
                         <td>Codelco</td>
                         <td><span class="tag tag-ok">Instalado</span></td>
@@ -216,16 +218,13 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     <tr>
                         <td><strong>ALJ1803</strong></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>Komatsu HD785-7WT</td>
+                        <td><span class="brand">Komatsu</span><span class="model">HD785-7WT</span></td>
                         <td>Aljibe</td>
                         <td>Codelco</td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>
-                            📍 Truckshop | <strong>⚡ INSTALANDO</strong>
-                            <div class="progress-mini"><div class="progress-fill" style="width: 95%;"></div></div>
-                        </td>
+                        <td>📍 Truckshop | <strong>⚡ INSTALANDO</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -254,40 +253,39 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>ALJ612</strong></td><td>No Aplica</td><td>KOMATSU HD785</td><td>Aljibe</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>PENDIENTE - SIN FECHA</td></tr>
-                    <tr><td><strong>ALJ617</strong></td><td>No Aplica</td><td>KOMATSU HD785</td><td>Aljibe</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>PENDIENTE - SIN FECHA</td></tr>
-                    <tr><td><strong>MO512</strong></td><td>No Aplica</td><td>Caterpillar 16M</td><td>Motoniveladora</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>PENDIENTE - SIN FECHA</td></tr>
-                    <tr><td><strong>MO519</strong></td><td>No Aplica</td><td>Caterpillar 14M</td><td>Motoniveladora</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>PENDIENTE - SIN FECHA</td></tr>
-                    <tr><td><strong>TO304</strong></td><td>No Aplica</td><td>Caterpillar D10</td><td>Bulldozer</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>PENDIENTE - SIN FECHA</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- SOLICITUD 3 -->
-    <div class="solicitud-card">
-        <div class="solicitud-title" style="background: #475569;">
-            <span>DESINSTALAR</span>
-            <span class="priority-badge" style="background:#16a34a">✅ EN CURSO</span>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
                     <tr>
-                        <th>Nro Interno</th>
-                        <th>Patente</th>
-                        <th>Marca / Modelo</th>
-                        <th>Tipo Equipo</th>
-                        <th>Empresa</th>
-                        <th>Acción CAS</th>
-                        <th>Acción FMS</th>
-                        <th>Acción OAS</th>
-                        <th>Observaciones</th>
+                        <td><strong>ALJ612</strong></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="brand">KOMATSU</span><span class="model">HD785</span></td>
+                        <td>Aljibe</td>
+                        <td>Tepsac</td>
+                        <td><span class="tag tag-desinstalar">Desinstalar</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td>PENDIENTE - SIN FECHA</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>CE330</strong></td><td>No Aplica</td><td>Caterpillar 777F</td><td>CAEX</td><td>Tepsac</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>Taller Tepsac. Equipo Disponible</td></tr>
-                    <tr><td><strong>CE101</strong></td><td>No Aplica</td><td>Caterpillar 777F</td><td>CAEX</td><td>Tepsac</td><td><span class="tag tag-ok">Desinstalado</span></td><td>No Aplica</td><td>No Aplica</td><td>✅ OK - 29/04/2026</td></tr>
+                    <tr>
+                        <td><strong>ALJ617</strong></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="brand">KOMATSU</span><span class="model">HD785</span></td>
+                        <td>Aljibe</td>
+                        <td>Tepsac</td>
+                        <td><span class="tag tag-desinstalar">Desinstalar</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td>PENDIENTE - SIN FECHA</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MO512</strong></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="brand">Caterpillar</span><span class="model">16M</span></td>
+                        <td>Motoniveladora</td>
+                        <td>Tepsac</td>
+                        <td><span class="tag tag-desinstalar">Desinstalar</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td>PENDIENTE - SIN FECHA</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -317,14 +315,14 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                 <tbody>
                     <tr>
                         <td><strong>POR DEFINIR</strong></td>
-                        <td>No Aplica</td>
-                        <td>Komatsu PC8000</td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="brand">Komatsu</span><span class="model">PC8000</span></td>
                         <td>Pala</td>
                         <td>Codelco</td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>📅 <strong>VISITA: 13-05-2026 | 12:00</strong> | Marco Carvajal / Bruno Zallini</td>
+                        <td>📅 <strong>VISITA: 13-05-2026 | 12:00</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -335,7 +333,7 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
     <div class="solicitud-card">
         <div class="solicitud-title" style="background: #334155;">
             <span>RE-INSTALACIONES</span>
-            <span class="priority-badge" style="background:var(--warning)">🚚 SEMANA 19</span>
+            <span class="priority-badge" style="background:var(--warning); color: #000;">🚚 SEMANA 20</span>
         </div>
         <div class="table-container">
             <table>
@@ -353,39 +351,28 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>ECO-894</strong></td><td>RBZJ-95</td><td>Mitsubishi L200</td><td>Camioneta</td><td>GEODETEC</td><td><span class="tag tag-desinstalar">Desinstalar</span></td><td>No Aplica</td><td>No Aplica</td><td>Semana 19</td></tr>
-                    <tr><td><strong>ECO-1114</strong></td><td>VRRL-24</td><td>TOYOTA HILUX</td><td>Camioneta</td><td>GEODETEC</td><td><span class="tag tag-instalar">Instalar</span></td><td>No Aplica</td><td>No Aplica</td><td>Sin kit | Semana 19</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- SOLICITUD 6 -->
-    <div class="solicitud-card">
-        <div class="solicitud-title" style="background: #064e3b;">
-            <span>ENTREGADOS</span>
-            <span class="priority-badge" style="background:#059669">✔️ COMPLETADO</span>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
                     <tr>
-                        <th>Nro Interno</th>
-                        <th>Patente</th>
-                        <th>Marca / Modelo</th>
-                        <th>Tipo Equipo</th>
-                        <th>Empresa</th>
-                        <th>Acción CAS</th>
-                        <th>Acción FMS</th>
-                        <th>Acción OAS</th>
-                        <th>Observaciones</th>
+                        <td><strong>ECO-894</strong></td>
+                        <td><strong>RBZJ-95</strong></td>
+                        <td><span class="brand">Mitsubishi</span><span class="model">L200</span></td>
+                        <td>Camioneta</td>
+                        <td>GEODETEC</td>
+                        <td><span class="tag tag-desinstalar">Desinstalar</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td>Programado Semana 20</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>ECO-1101</strong></td><td>TDYG73</td><td>Nissan Navara</td><td>Camioneta</td><td>Resk</td><td><span class="tag tag-ok">Instalado</span></td><td>No Aplica</td><td>No Aplica</td><td>ENTREGADO OK</td></tr>
-                    <tr><td><strong>BUS-4302</strong></td><td>VPSJ58</td><td>Mercedes Sprinter</td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td>No Aplica</td><td>No Aplica</td><td>16/04/2026</td></tr>
-                    <tr><td><strong>BUS-4303</strong></td><td>VPSJ66</td><td>Mercedes Sprinter</td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td>No Aplica</td><td>No Aplica</td><td>17/04/2026</td></tr>
-                    <tr><td><strong>BUS-4306</strong></td><td>VPSJ77</td><td>Mercedes Sprinter</td><td>Furgón</td><td>Tandem</td><td><span class="tag tag-ok">Instalado</span></td><td>No Aplica</td><td>No Aplica</td><td>18/04/2026</td></tr>
+                    <tr>
+                        <td><strong>ECO-1114</strong></td>
+                        <td><strong>VRRL-24</strong></td>
+                        <td><span class="brand">TOYOTA</span><span class="model">HILUX</span></td>
+                        <td>Camioneta</td>
+                        <td>GEODETEC</td>
+                        <td><span class="tag tag-instalar">Instalar</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td><span class="tag tag-na">No Aplica</span></td>
+                        <td>Sin kit disponible | Semana 20</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -398,17 +385,15 @@ version: b.080 - Dashboard + Estructura Original + Títulos Originales
             <span class="priority-badge" style="background:#475569">⚙️ SOPORTE CAMPO</span>
         </div>
         <div class="grid-otros">
-            <div class="task-card"><h4>Mantenimiento Preventivo</h4><p>S16: CAEX 111 (OK 18/04) | S17: CAEX 102 (OK)</p></div>
-            <div class="task-card"><h4>AMECO</h4><p>Aljibe ALJ625 (Sin Kit) | Revisión Pluma (Pendiente)</p></div>
-            <div class="task-card" style="border-left-color: var(--success);"><h4>Config CAS 10 - Vector ACP</h4><p>ECO 1067, AUX-1226, AUX-1282, AUX-1281 (OK)</p></div>
-            <div class="task-card"><h4>GANT EMT</h4><p>Espera de Platinas MIES - MO1702 | Pre-inst no revisadas</p></div>
-            <div class="task-card" style="border-left-color: var(--danger);"><h4>Incidentes / RMA</h4><p>Informes para firma de GOT (En curso 04-05-2026)</p></div>
-            <div class="task-card"><h4>Mantención LV</h4><p>PSINET: ECO-877/878 OK | RESK: CARRY OK (30/04)</p></div>
+            <div class="task-card"><h4>Mantenimiento Preventivo</h4><p>S16: CAEX 111 (OK) | S17: CAEX 102 (OK)</p></div>
+            <div class="task-card"><h4>AMECO</h4><p>Aljibe ALJ625 (Falta Kit) | Revisión Pluma (Pendiente)</p></div>
+            <div class="task-card" style="border-left-color: var(--success);"><h4>Config CAS 10</h4><p>ECO 1067, AUX-1226, AUX-1282, AUX-1281 (ENTREGADOS)</p></div>
+            <div class="task-card" style="border-left-color: var(--danger);"><h4>Incidentes / RMA</h4><p>Informes componentes incidentados para firma de GOT (En curso)</p></div>
         </div>
     </div>
 
     <footer>
-        Hexagon Mining Fleet Management System | Sincronizado: 06-05-2026
+        HEXAGON MINING • SISTEMA DE GESTIÓN DE PROYECTOS • MAYO 2026
     </footer>
 </div>
 
