@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
 @author: Miguel Pastén D. 
-version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratégico
+version: b.100 - RECTIFICADO: Logo, Progreso ALJ1803 y Estructura Final
 -->
 <html lang="es">
 <head>
@@ -30,6 +30,19 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
 
         .container { max-width: 100%; padding: 25px; }
 
+        /* --- TOPBAR & LOGO --- */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+        .logo-hexagon {
+            height: 35px;
+            filter: contrast(1.1);
+        }
+
         /* --- DASHBOARD HEADER --- */
         .dashboard-grid {
             display: grid;
@@ -44,16 +57,12 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
             border-radius: 12px;
             border: 1px solid var(--border);
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
             position: relative;
-            overflow: hidden;
         }
 
         .stat-card .label { color: var(--secondary); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        .stat-card .value { font-size: 22px; font-weight: 800; margin: 8px 0; color: var(--primary); }
+        .stat-card .value { font-size: 22px; font-weight: 800; margin: 8px 0; color: var(--primary); display: block; }
         .stat-card .sub-value { font-size: 12px; color: var(--secondary); font-weight: 500; }
-        .stat-card .indicator { position: absolute; right: 20px; top: 20px; font-size: 20px; }
 
         /* --- SOLICITUD CARD --- */
         .solicitud-card {
@@ -100,18 +109,22 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
 
         /* DISEÑO MARCA / MODELO */
         .brand { font-weight: 700; color: var(--primary); display: block; }
-        .model { font-weight: 400; color: var(--secondary); font-size: 11.5px; margin-top: 2px; }
+        .model { font-weight: 400; color: var(--secondary); font-size: 11px; margin-top: 1px; opacity: 0.8; }
 
         /* --- TAGS & UI --- */
-        .tag { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; display: inline-block; border: 1px solid transparent; }
+        .tag { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; display: inline-block; border: 1px solid transparent; white-space: nowrap; }
         .tag-instalar { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
         .tag-desinstalar { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
         .tag-ok { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
         .tag-na { background: #f1f5f9; color: #94a3b8; font-weight: 600; border-color: #e2e8f0; }
         
-        .priority-badge { background: #dc2626; color: white; padding: 2px 10px; border-radius: 20px; font-size: 10px; display: flex; align-items: center; gap: 5px; font-weight: 700; }
+        .priority-badge { background: #dc2626; color: white; padding: 2px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
 
         .alert-row { background: #fff7ed; border: 1px solid #ffedd5; color: #9a3412; padding: 6px 10px; margin-top: 5px; font-weight: 700; font-size: 11px; border-radius: 4px; display: inline-block; }
+
+        /* BARRA PROGRESO FILA */
+        .progress-container { width: 100%; max-width: 150px; background: #e2e8f0; border-radius: 10px; height: 6px; margin-top: 8px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--success); border-radius: 10px; }
 
         /* --- OTRAS SOLICITUDES GRID --- */
         .grid-otros { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding: 25px; background: #f8fafc; }
@@ -126,24 +139,30 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
 <body>
 
 <div class="container">
+
+    <!-- HEADER CON LOGO -->
+    <div class="topbar">
+        <div class="titles">
+            <h2 style="margin:0; font-size: 18px;">Panel de Control de Proyectos</h2>
+            <p style="margin:0; color: var(--secondary);">Servicios de Campo y Flota</p>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hexagon_logo.svg" class="logo-hexagon" alt="Hexagon Logo">
+    </div>
     
-    <!-- DASHBOARD ESTRATÉGICO -->
+    <!-- DASHBOARD -->
     <div class="dashboard-grid">
         <div class="stat-card">
-            <span class="indicator">🚛</span>
             <span class="label">Control de Flota</span>
             <span class="value">19 Unidades</span>
-            <span class="sub-value">6 Solicitudes Activas en Sistema</span>
+            <span class="sub-value">Monitoreo CAS / FMS / OAS</span>
         </div>
         <div class="stat-card">
-            <span class="indicator">📅</span>
-            <span class="label">Hito Geodetec</span>
+            <span class="label">Próximo Hito Crítico</span>
             <span class="value">Semana 20</span>
-            <span class="sub-value" style="color: var(--accent);">Re-instalación Programada</span>
+            <span class="sub-value" style="color: var(--accent);">Re-instalación GEODETEC</span>
         </div>
         <div class="stat-card">
-            <span class="indicator">📍</span>
-            <span class="label">Próxima Visita Técnica</span>
+            <span class="label">Visita Programada</span>
             <span class="value">13 de Mayo</span>
             <span class="sub-value">Pala Komatsu PC8000</span>
         </div>
@@ -180,29 +199,7 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>📍 Truckshop | Regularizar Pre-Instalación<br><span class="alert-row">⚠️ SIN KIT DE REINSTALACIÓN CAS</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>MO1704</strong></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td>
-                        <td>Motoniveladora</td>
-                        <td>Codelco</td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>📍 Truckshop | Regularizar Pre-Instalación</td>
-                    </tr>
-                    <tr>
-                        <td><strong>MO1703</strong></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="brand">Komatsu</span><span class="model">GD955-7EO</span></td>
-                        <td>Motoniveladora</td>
-                        <td>Codelco</td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>📍 Truckshop | Regularizar Pre-Instalación<br><span class="alert-row">⚠️ SIN KIT DE REINSTALACIÓN CAS</span></td>
+                        <td>📍 Truckshop | Pre-Instalación<br><span class="alert-row">⚠️ SIN KIT REINSTALACIÓN CAS</span></td>
                     </tr>
                     <tr>
                         <td><strong>ALJ1802</strong></td>
@@ -224,7 +221,12 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
                         <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>📍 Truckshop | <strong>⚡ INSTALANDO</strong></td>
+                        <td>
+                            📍 Truckshop | <strong>⚡ EN PROCESO (95%)</strong>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 95%;"></div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -262,67 +264,7 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
                         <td><span class="tag tag-desinstalar">Desinstalar</span></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>PENDIENTE - SIN FECHA</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ALJ617</strong></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="brand">KOMATSU</span><span class="model">HD785</span></td>
-                        <td>Aljibe</td>
-                        <td>Tepsac</td>
-                        <td><span class="tag tag-desinstalar">Desinstalar</span></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>PENDIENTE - SIN FECHA</td>
-                    </tr>
-                    <tr>
-                        <td><strong>MO512</strong></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="brand">Caterpillar</span><span class="model">16M</span></td>
-                        <td>Motoniveladora</td>
-                        <td>Tepsac</td>
-                        <td><span class="tag tag-desinstalar">Desinstalar</span></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>PENDIENTE - SIN FECHA</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- SOLICITUD 4 -->
-    <div class="solicitud-card">
-        <div class="solicitud-title" style="background: #1e293b;">
-            <span>PRE-INSTALACIÓN</span>
-            <span class="priority-badge" style="background:var(--accent)">📅 COORDINACIÓN</span>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nro Interno</th>
-                        <th>Patente</th>
-                        <th>Marca / Modelo</th>
-                        <th>Tipo Equipo</th>
-                        <th>Empresa</th>
-                        <th>Acción CAS</th>
-                        <th>Acción FMS</th>
-                        <th>Acción OAS</th>
-                        <th>Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>POR DEFINIR</strong></td>
-                        <td><span class="tag tag-na">No Aplica</span></td>
-                        <td><span class="brand">Komatsu</span><span class="model">PC8000</span></td>
-                        <td>Pala</td>
-                        <td>Codelco</td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td><span class="tag tag-instalar">Instalar</span></td>
-                        <td>📅 <strong>VISITA: 13-05-2026 | 12:00</strong></td>
+                        <td>PENDIENTE</td>
                     </tr>
                 </tbody>
             </table>
@@ -360,7 +302,7 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
                         <td><span class="tag tag-desinstalar">Desinstalar</span></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
                         <td><span class="tag tag-na">No Aplica</span></td>
-                        <td>Programado Semana 20</td>
+                        <td>Semana 20</td>
                     </tr>
                     <tr>
                         <td><strong>ECO-1114</strong></td>
@@ -382,13 +324,13 @@ version: b.090 - Consistencia Visual + Jerarquía de Marca + Dashboard Estratég
     <div class="solicitud-card">
         <div class="solicitud-title" style="background: #1e1e1e;">
             <span>OTRAS SOLICITUDES</span>
-            <span class="priority-badge" style="background:#475569">⚙️ SOPORTE CAMPO</span>
+            <span class="priority-badge" style="background:#475569">⚙️ SOPORTE</span>
         </div>
         <div class="grid-otros">
-            <div class="task-card"><h4>Mantenimiento Preventivo</h4><p>S16: CAEX 111 (OK) | S17: CAEX 102 (OK)</p></div>
-            <div class="task-card"><h4>AMECO</h4><p>Aljibe ALJ625 (Falta Kit) | Revisión Pluma (Pendiente)</p></div>
-            <div class="task-card" style="border-left-color: var(--success);"><h4>Config CAS 10</h4><p>ECO 1067, AUX-1226, AUX-1282, AUX-1281 (ENTREGADOS)</p></div>
-            <div class="task-card" style="border-left-color: var(--danger);"><h4>Incidentes / RMA</h4><p>Informes componentes incidentados para firma de GOT (En curso)</p></div>
+            <div class="task-card"><h4>Mantenimiento</h4><p>S16: CAEX 111 (OK) | S17: CAEX 102 (OK)</p></div>
+            <div class="task-card"><h4>AMECO</h4><p>Aljibe ALJ625 (Falta Kit) | Revisión Pluma</p></div>
+            <div class="task-card" style="border-left-color: var(--success);"><h4>Config CAS 10</h4><p>ECO 1067, AUX-1226 (ENTREGADOS)</p></div>
+            <div class="task-card" style="border-left-color: var(--danger);"><h4>RMA</h4><p>Informes para firma de GOT (En curso)</p></div>
         </div>
     </div>
 
