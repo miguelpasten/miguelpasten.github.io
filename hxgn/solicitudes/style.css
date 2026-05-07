@@ -906,3 +906,26 @@ body {
   }
 
 }
+/* TITULO SOLICITUD */
+
+.solicitud-info h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.codigo-solicitud {
+  display: inline-block;
+
+  margin-top: 6px;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  color: #64748b;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}

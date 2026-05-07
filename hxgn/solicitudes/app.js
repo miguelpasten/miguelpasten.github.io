@@ -79,10 +79,15 @@ function renderSolicitudes(data) {
     row.className = "tabla-row";
 
     row.innerHTML = `
-      <div>
-        <strong>${solicitud.codigo}</strong>
-        <p>${solicitud.titulo}</p>
-      </div>
+        <div class="solicitud-info">
+
+            <h3>${solicitud.titulo}</h3>
+
+            <span class="codigo-solicitud">
+                ${solicitud.codigo}
+            </span>
+
+        </div>
 
       <div>
         <span class="badge estado-${solicitud.estado}">
