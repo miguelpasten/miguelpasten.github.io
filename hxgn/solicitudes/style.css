@@ -5,20 +5,24 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, sans-serif;
-  background: #f4f6f9;
-  color: #111827;
+  background: linear-gradient(180deg, #eef2f7 0%, #f8fafc 100%);
+  color: #0f172a;
 }
+
+/* HEADER */
 
 .topbar {
   background: #ffffff;
   border-bottom: 1px solid #dbe3ee;
-  padding: 18px 28px;
+  padding: 18px 34px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  flex-wrap: wrap;
-  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .brand {
@@ -28,24 +32,33 @@ body {
 }
 
 .brand img {
-  height: 54px;
+  height: 52px;
+  max-width: 170px;
+  object-fit: contain;
 }
 
 .brand h1 {
   margin: 0;
   font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
 }
 
 .brand p {
   margin: 4px 0 0;
   color: #64748b;
+  font-size: 14px;
 }
 
 .api-status {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 600;
+  font-weight: 700;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 999px;
 }
 
 .dot {
@@ -64,55 +77,68 @@ body {
   background: #ef4444;
 }
 
+/* LAYOUT */
+
 .container {
-  max-width: 1300px;
-  margin: 24px auto;
-  padding: 0 18px 40px;
+  max-width: 1350px;
+  margin: 26px auto;
+  padding: 0 22px 50px;
 }
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
 }
 
 .card {
-  background: white;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid #dbe3ee;
-  border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
 }
 
 .card h3 {
   margin: 0 0 8px;
   color: #64748b;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 0.7px;
 }
 
 .card p {
   margin: 0;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 800;
 }
 
 .section-title {
-  margin-bottom: 14px;
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 800;
 }
 
 .grid {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
+/* SOLICITUDES */
+
 .solicitud-card {
-  background: white;
+  background: #ffffff;
   border: 1px solid #dbe3ee;
-  border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.solicitud-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
 }
 
 .solicitud-header {
@@ -120,31 +146,35 @@ body {
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .solicitud-card h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 19px;
+  font-weight: 800;
 }
 
 .descripcion {
   color: #475569;
   margin: 10px 0 16px;
+  line-height: 1.45;
 }
 
 .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
 }
 
 .badge {
   padding: 6px 11px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
   background: #eef2f6;
   color: #334155;
+  border: 1px solid rgba(15, 23, 42, 0.04);
 }
 
 .prioridad-CRITICA {
@@ -155,6 +185,16 @@ body {
 .prioridad-ALTA {
   background: #ffedd5;
   color: #9a3412;
+}
+
+.prioridad-MEDIA {
+  background: #eef2f6;
+  color: #475569;
+}
+
+.prioridad-BAJA {
+  background: #dcfce7;
+  color: #166534;
 }
 
 .estado-COMPLETADA {
@@ -174,7 +214,7 @@ body {
 
 .progress {
   margin-top: 16px;
-  height: 10px;
+  height: 9px;
   background: #e5e7eb;
   border-radius: 999px;
   overflow: hidden;
@@ -182,17 +222,17 @@ body {
 
 .progress-bar {
   height: 100%;
-  background: #111827;
+  background: linear-gradient(90deg, #111827 0%, #334155 100%);
 }
 
 .btn-detalle {
-  margin-top: 14px;
+  margin-top: 16px;
   border: none;
   background: #111827;
   color: white;
-  padding: 9px 14px;
-  border-radius: 10px;
-  font-weight: 700;
+  padding: 10px 15px;
+  border-radius: 11px;
+  font-weight: 800;
   cursor: pointer;
 }
 
@@ -200,14 +240,16 @@ body {
   background: #1f2937;
 }
 
+/* MODAL */
+
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.62);
+  background: rgba(15, 23, 42, 0.65);
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 22px;
+  padding: 24px;
   z-index: 999;
 }
 
@@ -216,52 +258,64 @@ body {
 }
 
 .modal-content {
-  background: white;
-  width: min(1100px, 96vw);
+  background: #ffffff;
+  width: min(1120px, 96vw);
   max-height: 88vh;
   overflow-y: auto;
-  border-radius: 18px;
-  padding: 22px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.32);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
 }
 
 .btn-cerrar {
   border: none;
   background: #fee2e2;
   color: #991b1b;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-weight: 700;
+  padding: 9px 13px;
+  border-radius: 11px;
+  font-weight: 800;
   cursor: pointer;
 }
 
 .detalle-item {
   border: 1px solid #dbe3ee;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 14px;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
   background: #f8fafc;
+}
+
+.detalle-item h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
 }
 
 .detalle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 8px;
-  margin: 12px 0;
+  gap: 9px;
+  margin: 12px 0 18px;
 }
 
 .detalle-box {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 11px;
   font-size: 13px;
 }
 
@@ -270,10 +324,32 @@ body {
   color: #64748b;
   font-size: 11px;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .lista-obs {
   margin: 8px 0 0;
-  padding-left: 18px;
+  padding-left: 20px;
+  line-height: 1.45;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 780px) {
+  .topbar {
+    padding: 16px 18px;
+    align-items: flex-start;
+  }
+
+  .brand img {
+    height: 42px;
+  }
+
+  .brand h1 {
+    font-size: 23px;
+  }
+
+  .modal-content {
+    padding: 18px;
+  }
 }
