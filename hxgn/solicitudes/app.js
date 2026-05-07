@@ -1,9 +1,16 @@
-const API_URL = "https://r0x.cl/hxgn_solicitudes/solicitudes.php";
-const API_DETALLE_URL = "https://r0x.cl/hxgn_solicitudes/solicitud_detalle.php?id=";
+const API_BASE = "https://r0x.cl/hxgn_solicitudes";
+
+const API_URL = `${API_BASE}/solicitudes.php`;
+const API_DETALLE_URL = `${API_BASE}/solicitud_detalle.php?id=`;
+const SESSION_URL = `${API_BASE}/session.php`;
+
+let usuarioActual = null;
+let solicitudesGlobal = [];
 
 const estadoApi = document.getElementById("estadoApi");
 const estadoApiDot = document.getElementById("estadoApiDot");
 const container = document.getElementById("solicitudesContainer");
+const sidebarMenu = document.getElementById("sidebarMenu");
 
 const totalSolicitudes = document.getElementById("totalSolicitudes");
 const totalEquipos = document.getElementById("totalEquipos");
@@ -13,23 +20,71 @@ const modal = document.getElementById("modalDetalle");
 const modalTitulo = document.getElementById("modalTitulo");
 const modalBody = document.getElementById("modalBody");
 const cerrarModal = document.getElementById("cerrarModal");
+
 const busquedaInput = document.getElementById("busquedaInput");
 const filtroEstado = document.getElementById("filtroEstado");
 const filtroPrioridad = document.getElementById("filtroPrioridad");
-const API_BASE =
-  "https://r0x.cl/hxgn_solicitudes";
 
-const SESSION_URL =
-  `${API_BASE}/session.php`;
+if (cerrarModal) {
+  cerrarModal.addEventListener("click", () => {
+    modal.classList.remove("show");
+  });
+}
 
-let usuarioActual = null;
-const sidebarMenu = document.getElementById("sidebarMenu");
+async function validarSesion() {
+  try {
+    const response = await fetch(SESSION_URL, {
+      credentials: "include"
+    });
 
-let solicitudesGlobal = [];
+    const result = await response.json();
 
-cerrarModal.addEventListener("click", () => {
-  modal.classList.remove("show");
-});
+    if (!result.authenticated) {
+      window.location.href = "login.html";
+      return false;
+    }
+
+    usuarioActual = result.usuario;
+    return true;
+
+  } catch (error) {
+    window.location.href = "login.html";
+    return false;
+  }
+}
+
+async function cargarMenu() {
+  try {
+    const response = await fetch(
+      `${API_BASE}/menu.php?rol=${usuarioActual.rol}`
+    );
+
+    const result = await response.json();
+
+    if (!result.ok) {
+      throw new Error("Error menú");
+    }
+
+    sidebarMenu.innerHTML = "";
+
+    result.data.forEach((item, index) => {
+      const link = document.createElement("a");
+
+      link.href = item.ruta || "#";
+      link.textContent = item.nombre;
+
+      if (index === 0) {
+        link.classList.add("active");
+      }
+
+      sidebarMenu.appendChild(link);
+    });
+
+  } catch (error) {
+    sidebarMenu.innerHTML = `<a class="active">Error menú</a>`;
+    console.error(error);
+  }
+}
 
 async function cargarSolicitudes() {
   try {
@@ -57,10 +112,16 @@ async function cargarSolicitudes() {
 }
 
 function renderResumen(data) {
-  const totalItems = data.reduce((sum, item) => sum + Number(item.total_items || 0), 0);
+  const totalItems = data.reduce((sum, item) => {
+    return sum + Number(item.total_items || 0);
+  }, 0);
 
   const promedio = data.length
-    ? Math.round(data.reduce((sum, item) => sum + Number(item.avance_promedio || 0), 0) / data.length)
+    ? Math.round(
+        data.reduce((sum, item) => {
+          return sum + Number(item.avance_promedio || 0);
+        }, 0) / data.length
+      )
     : 0;
 
   totalSolicitudes.textContent = data.length;
@@ -87,15 +148,10 @@ function renderSolicitudes(data) {
     row.className = "tabla-row";
 
     row.innerHTML = `
-        <div class="solicitud-info">
-
-            <h3>${solicitud.titulo}</h3>
-
-            <span class="codigo-solicitud">
-                ${solicitud.codigo}
-            </span>
-
-        </div>
+      <div class="solicitud-info">
+        <h3>${solicitud.titulo}</h3>
+        <span class="codigo-solicitud">${solicitud.codigo}</span>
+      </div>
 
       <div>
         <span class="badge estado-${solicitud.estado}">
@@ -132,33 +188,26 @@ function renderSolicitudes(data) {
 }
 
 function aplicarFiltros() {
-
   const texto = busquedaInput.value.toLowerCase().trim();
-
   const estado = filtroEstado.value;
   const prioridad = filtroPrioridad.value;
 
   let filtradas = [...solicitudesGlobal];
 
-  // BUSCADOR
   if (texto) {
     filtradas = filtradas.filter(s => {
-
       return (
         s.codigo.toLowerCase().includes(texto) ||
         s.titulo.toLowerCase().includes(texto) ||
         (s.descripcion || "").toLowerCase().includes(texto)
       );
-
     });
   }
 
-  // ESTADO
   if (estado) {
     filtradas = filtradas.filter(s => s.estado === estado);
   }
 
-  // PRIORIDAD
   if (prioridad) {
     filtradas = filtradas.filter(s => s.prioridad === prioridad);
   }
@@ -216,93 +265,23 @@ async function verDetalle(id) {
   }
 }
 
-busquedaInput.addEventListener("input", aplicarFiltros);
-
-filtroEstado.addEventListener("change", aplicarFiltros);
-
-filtroPrioridad.addEventListener("change", aplicarFiltros);
-
-async function validarSesion() {
-
-  try {
-
-    const response = await fetch(
-      SESSION_URL,
-      {
-        credentials: "include"
-      }
-    );
-
-    const result = await response.json();
-
-    if (!result.authenticated) {
-
-      window.location.href = "login.html";
-
-      return false;
-    }
-
-    usuarioActual = result.usuario;
-
-    return true;
-
-  } catch (error) {
-
-    window.location.href = "login.html";
-
-    return false;
-  }
+if (busquedaInput) {
+  busquedaInput.addEventListener("input", aplicarFiltros);
 }
 
-async function cargarMenu() {
+if (filtroEstado) {
+  filtroEstado.addEventListener("change", aplicarFiltros);
+}
 
-  try {
-
-    const response = await fetch(
-      `${API_BASE}/menu.php?rol=${usuarioActual.rol}`
-    );
-
-    const result = await response.json();
-
-    if (!result.ok) {
-      throw new Error("Error menú");
-    }
-
-    sidebarMenu.innerHTML = "";
-
-    result.data.forEach((item, index) => {
-
-      const link = document.createElement("a");
-
-      link.href = item.ruta || "#";
-
-      link.textContent = item.nombre;
-
-      if (index === 0) {
-        link.classList.add("active");
-      }
-
-      sidebarMenu.appendChild(link);
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    sidebarMenu.innerHTML =
-      `<a class="active">Error menú</a>`;
-  }
+if (filtroPrioridad) {
+  filtroPrioridad.addEventListener("change", aplicarFiltros);
 }
 
 (async () => {
-
-  const ok =
-    await validarSesion();
+  const ok = await validarSesion();
 
   if (!ok) return;
 
   await cargarMenu();
-
   await cargarSolicitudes();
-
 })();
