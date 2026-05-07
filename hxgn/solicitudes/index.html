@@ -8,22 +8,35 @@
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
       <img src="hex_logo_blk.png" alt="Hexagon" />
+      <span>Solicitudes</span>
+    </div>
+
+    <nav class="menu">
+      <a class="active">Dashboard</a>
+      <a>Solicitudes</a>
+      <a>Equipos</a>
+      <a>Clientes</a>
+      <a>Reportes</a>
+      <a>Configuración</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
       <div>
-        <h1>Solicitudes</h1>
-        <p>Dashboard operacional dinámico desde API</p>
+        <h1>Dashboard de Solicitudes</h1>
+        <p>Gestión operacional dinámica desde API / MySQL</p>
       </div>
-    </div>
 
-    <div class="api-status">
-      <span id="estadoApiDot" class="dot"></span>
-      <span id="estadoApi">Conectando API...</span>
-    </div>
-  </header>
+      <div class="api-status">
+        <span id="estadoApiDot" class="dot"></span>
+        <span id="estadoApi">Conectando API...</span>
+      </div>
+    </header>
 
-  <main class="container">
     <section class="summary">
       <div class="card">
         <h3>Solicitudes</h3>
@@ -36,14 +49,20 @@
       </div>
 
       <div class="card">
-        <h3>Promedio avance</h3>
+        <h3>Avance promedio</h3>
         <p id="avanceGlobal">0%</p>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Listado de solicitudes</h2>
-      <div id="solicitudesContainer" class="grid"></div>
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Solicitudes activas</h2>
+          <p>Listado operacional de solicitudes registradas</p>
+        </div>
+      </div>
+
+      <div id="solicitudesContainer" class="tabla-solicitudes"></div>
     </section>
   </main>
 

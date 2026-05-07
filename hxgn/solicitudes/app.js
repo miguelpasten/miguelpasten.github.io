@@ -30,28 +30,22 @@ async function cargarSolicitudes() {
     estadoApi.textContent = "API conectada";
     estadoApiDot.classList.add("ok");
 
-    renderSolicitudes(result.data);
     renderResumen(result.data);
+    renderSolicitudes(result.data);
 
   } catch (error) {
     estadoApi.textContent = "Error API";
     estadoApiDot.classList.add("error");
-    container.innerHTML = `<p>No fue posible cargar las solicitudes.</p>`;
+    container.innerHTML = `<div class="empty">No fue posible cargar las solicitudes.</div>`;
     console.error(error);
   }
 }
 
 function renderResumen(data) {
-  const totalItems = data.reduce((sum, item) => {
-    return sum + Number(item.total_items || 0);
-  }, 0);
+  const totalItems = data.reduce((sum, item) => sum + Number(item.total_items || 0), 0);
 
   const promedio = data.length
-    ? Math.round(
-        data.reduce((sum, item) => {
-          return sum + Number(item.avance_promedio || 0);
-        }, 0) / data.length
-      )
+    ? Math.round(data.reduce((sum, item) => sum + Number(item.avance_promedio || 0), 0) / data.length)
     : 0;
 
   totalSolicitudes.textContent = data.length;
@@ -60,42 +54,60 @@ function renderResumen(data) {
 }
 
 function renderSolicitudes(data) {
-  container.innerHTML = "";
+  container.innerHTML = `
+    <div class="tabla-header">
+      <span>Solicitud</span>
+      <span>Estado</span>
+      <span>Prioridad</span>
+      <span>Equipos</span>
+      <span>Avance</span>
+      <span>Acción</span>
+    </div>
+  `;
 
   data.forEach((solicitud) => {
     const avance = Number(solicitud.avance_promedio || 0);
 
-    const card = document.createElement("article");
-    card.className = "solicitud-card";
+    const row = document.createElement("div");
+    row.className = "tabla-row";
 
-    card.innerHTML = `
-      <div class="solicitud-header">
-        <h3>${solicitud.codigo} · ${solicitud.titulo}</h3>
+    row.innerHTML = `
+      <div>
+        <strong>${solicitud.codigo}</strong>
+        <p>${solicitud.titulo}</p>
+      </div>
+
+      <div>
+        <span class="badge estado-${solicitud.estado}">
+          ${solicitud.estado}
+        </span>
+      </div>
+
+      <div>
         <span class="badge prioridad-${solicitud.prioridad}">
           ${solicitud.prioridad}
         </span>
       </div>
 
-      <p class="descripcion">${solicitud.descripcion || ""}</p>
-
-      <div class="meta">
-        <span class="badge estado-${solicitud.estado}">
-          ${solicitud.estado}
-        </span>
-        <span class="badge">${solicitud.total_items} equipos</span>
-        <span class="badge">Avance ${avance}%</span>
+      <div>
+        <strong>${solicitud.total_items}</strong>
       </div>
 
-      <div class="progress">
-        <div class="progress-bar" style="width: ${avance}%"></div>
+      <div>
+        <div class="mini-progress">
+          <div style="width:${avance}%"></div>
+        </div>
+        <small>${avance}%</small>
       </div>
 
-      <button class="btn-detalle" onclick="verDetalle(${solicitud.id})">
-        Ver detalle
-      </button>
+      <div>
+        <button class="btn-detalle" onclick="verDetalle(${solicitud.id})">
+          Ver detalle
+        </button>
+      </div>
     `;
 
-    container.appendChild(card);
+    container.appendChild(row);
   });
 }
 
@@ -137,9 +149,7 @@ async function verDetalle(id) {
 
         <h4>Observaciones</h4>
         <ul class="lista-obs">
-          ${item.observaciones.map(o => `
-            <li>${o.observacion}</li>
-          `).join("")}
+          ${item.observaciones.map(o => `<li>${o.observacion}</li>`).join("")}
         </ul>
       </div>
     `).join("");
