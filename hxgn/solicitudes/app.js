@@ -16,6 +16,8 @@ const cerrarModal = document.getElementById("cerrarModal");
 const busquedaInput = document.getElementById("busquedaInput");
 const filtroEstado = document.getElementById("filtroEstado");
 const filtroPrioridad = document.getElementById("filtroPrioridad");
+const MENU_URL = "https://r0x.cl/hxgn_solicitudes/menu.php?rol=ADMIN";
+const sidebarMenu = document.getElementById("sidebarMenu");
 
 let solicitudesGlobal = [];
 
@@ -214,4 +216,34 @@ filtroEstado.addEventListener("change", aplicarFiltros);
 
 filtroPrioridad.addEventListener("change", aplicarFiltros);
 
+async function cargarMenu() {
+  try {
+    const response = await fetch(MENU_URL);
+    const result = await response.json();
+
+    if (!result.ok) {
+      throw new Error("Error al cargar menú");
+    }
+
+    sidebarMenu.innerHTML = "";
+
+    result.data.forEach((item, index) => {
+      const link = document.createElement("a");
+
+      link.href = item.ruta || "#";
+      link.textContent = item.nombre;
+
+      if (index === 0) {
+        link.classList.add("active");
+      }
+
+      sidebarMenu.appendChild(link);
+    });
+
+  } catch (error) {
+    sidebarMenu.innerHTML = `<a class="active">Error menú</a>`;
+    console.error(error);
+  }
+}
+cargarMenu();
 cargarSolicitudes();
