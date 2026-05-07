@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HxGN Solicitudes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="hex_logo_blk.png" alt="Hexagon" />
+      <div>
+        <h1>Solicitudes</h1>
+        <p>Dashboard operacional dinámico desde API</p>
+      </div>
+    </div>
+
+    <div class="api-status">
+      <span id="estadoApiDot" class="dot"></span>
+      <span id="estadoApi">Conectando API...</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="summary">
+      <div class="card">
+        <h3>Solicitudes</h3>
+        <p id="totalSolicitudes">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Equipos involucrados</h3>
+        <p id="totalEquipos">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Promedio avance</h3>
+        <p id="avanceGlobal">0%</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Listado de solicitudes</h2>
+      <div id="solicitudesContainer" class="grid"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
