@@ -11,19 +11,16 @@
   <aside class="sidebar">
     <div class="sidebar-brand">
       <img src="hex_logo_blk.png" alt="Hexagon" />
-    </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-brand">
       <span>Solicitudes</span>
     </div>
 
     <nav id="sidebarMenu" class="menu">
-        <a class="active">Cargando menú...</a>
+      <a class="active">Cargando menú...</a>
     </nav>
   </aside>
 
   <main class="main">
+
     <header class="topbar">
       <div>
         <h1>Dashboard de Solicitudes</h1>
@@ -55,41 +52,34 @@
 
     <section class="panel">
       <div class="panel-header">
-
         <div>
-            <h2>Solicitudes activas</h2>
-            <p>Listado operacional de solicitudes registradas</p>
+          <h2>Solicitudes activas</h2>
+          <p>Listado operacional de solicitudes registradas</p>
         </div>
+      </div>
 
-        </div>
-
-        <div class="filtros-bar">
-
-        <input
-            type="text"
-            id="busquedaInput"
-            placeholder="Buscar solicitud..."
-        />
+      <div class="filtros-bar">
+        <input type="text" id="busquedaInput" placeholder="Buscar solicitud..." />
 
         <select id="filtroEstado">
-            <option value="">Todos los estados</option>
-            <option value="PENDIENTE">Pendiente</option>
-            <option value="EN_PROCESO">En proceso</option>
-            <option value="COMPLETADA">Completada</option>
+          <option value="">Todos los estados</option>
+          <option value="PENDIENTE">Pendiente</option>
+          <option value="EN_PROCESO">En proceso</option>
+          <option value="COMPLETADA">Completada</option>
         </select>
 
         <select id="filtroPrioridad">
-            <option value="">Todas las prioridades</option>
-            <option value="CRITICA">Crítica</option>
-            <option value="ALTA">Alta</option>
-            <option value="MEDIA">Media</option>
-            <option value="BAJA">Baja</option>
+          <option value="">Todas las prioridades</option>
+          <option value="CRITICA">Crítica</option>
+          <option value="ALTA">Alta</option>
+          <option value="MEDIA">Media</option>
+          <option value="BAJA">Baja</option>
         </select>
-
-</div>
+      </div>
 
       <div id="solicitudesContainer" class="tabla-solicitudes"></div>
     </section>
+
   </main>
 
   <div id="modalDetalle" class="modal">
@@ -98,6 +88,7 @@
         <h2 id="modalTitulo">Detalle solicitud</h2>
         <button id="cerrarModal" class="btn-cerrar">Cerrar</button>
       </div>
+
       <div id="modalBody"></div>
     </div>
   </div>
