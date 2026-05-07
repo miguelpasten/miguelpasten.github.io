@@ -13,6 +13,11 @@ const modal = document.getElementById("modalDetalle");
 const modalTitulo = document.getElementById("modalTitulo");
 const modalBody = document.getElementById("modalBody");
 const cerrarModal = document.getElementById("cerrarModal");
+const busquedaInput = document.getElementById("busquedaInput");
+const filtroEstado = document.getElementById("filtroEstado");
+const filtroPrioridad = document.getElementById("filtroPrioridad");
+
+let solicitudesGlobal = [];
 
 cerrarModal.addEventListener("click", () => {
   modal.classList.remove("show");
@@ -29,6 +34,8 @@ async function cargarSolicitudes() {
 
     estadoApi.textContent = "API conectada";
     estadoApiDot.classList.add("ok");
+
+    solicitudesGlobal = result.data;
 
     renderResumen(result.data);
     renderSolicitudes(result.data);
@@ -111,6 +118,41 @@ function renderSolicitudes(data) {
   });
 }
 
+function aplicarFiltros() {
+
+  const texto = busquedaInput.value.toLowerCase().trim();
+
+  const estado = filtroEstado.value;
+  const prioridad = filtroPrioridad.value;
+
+  let filtradas = [...solicitudesGlobal];
+
+  // BUSCADOR
+  if (texto) {
+    filtradas = filtradas.filter(s => {
+
+      return (
+        s.codigo.toLowerCase().includes(texto) ||
+        s.titulo.toLowerCase().includes(texto) ||
+        (s.descripcion || "").toLowerCase().includes(texto)
+      );
+
+    });
+  }
+
+  // ESTADO
+  if (estado) {
+    filtradas = filtradas.filter(s => s.estado === estado);
+  }
+
+  // PRIORIDAD
+  if (prioridad) {
+    filtradas = filtradas.filter(s => s.prioridad === prioridad);
+  }
+
+  renderSolicitudes(filtradas);
+}
+
 async function verDetalle(id) {
   try {
     modal.classList.add("show");
@@ -160,5 +202,11 @@ async function verDetalle(id) {
     console.error(error);
   }
 }
+
+busquedaInput.addEventListener("input", aplicarFiltros);
+
+filtroEstado.addEventListener("change", aplicarFiltros);
+
+filtroPrioridad.addEventListener("change", aplicarFiltros);
 
 cargarSolicitudes();
