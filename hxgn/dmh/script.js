@@ -2,13 +2,13 @@
 const CONFIG = {
   title: "Operacional",
   subtitle: "Inventario de equipos - Almacenamiento Servidores",
-  logoUrl: "img/icons/logo_blk.png",
+  logoUrl: "./img/icons/logo_blk.png",
   footerBrand: "By Miguel Pastén.",
   thresholds: {
     greenEnd: 0.65,
     amberEnd: 0.80,
   },
-  inventario: [], // Se cargará desde la API
+  inventario: [],
   fisicos: [
     { name: "Servidor Primario", ip: "10.79.1.53", value: 889, max: 3500, os: "linux" },
     { name: "Servidor Secundario", ip: "10.79.1.49", value: 1200, max: 3500, os: "linux" },
@@ -26,12 +26,28 @@ const CONFIG = {
 
 // Función para cargar inventario desde API
 async function cargarInventario() {
+  console.log('🔄 Intentando cargar inventario...');
+  
   try {
     const response = await fetch('https://r0x.cl/hxgn/inventario.php');
+    
+    console.log('Status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json();
+    console.log('Datos recibidos:', data);
     
     if (data.error) {
       console.error('Error en API:', data.error);
+      console.error('Detalles:', data.details);
+      return;
+    }
+    
+    if (!data.inventario || data.inventario.length === 0) {
+      console.warn('️ No hay datos de inventario');
       return;
     }
     
@@ -41,39 +57,55 @@ async function cargarInventario() {
     
   } catch (error) {
     console.error('❌ Error al cargar inventario:', error);
+    console.error('URL intentada:', 'https://r0x.cl/hxgn/inventario.php');
   }
 }
 
 // Función para renderizar inventario
 function renderInventario() {
-  document.getElementById('inventarioGrid').innerHTML = CONFIG.inventario.map(inv => `
-    <div class="inv-card" style="--card-color: ${inv.color}">
-      <div class="inv-header">
-        <div class="inv-label">${inv.label}</div>
-        <div class="inv-total-wrap">
-          <div class="inv-total">${inv.total}</div>
-          <div class="inv-total-label">Equipos</div>
+  console.log('🎨 Renderizando inventario...', CONFIG.inventario);
+  
+  const grid = document.getElementById('inventarioGrid');
+  
+  if (!grid) {
+    console.error('❌ No se encontró el elemento inventarioGrid');
+    return;
+  }
+  
+  grid.innerHTML = CONFIG.inventario.map(inv => {
+    console.log(' Procesando:', inv);
+    
+    return `
+      <div class="inv-card" style="--card-color: ${inv.color}">
+        <div class="inv-header">
+          <div class="inv-label">${inv.label}</div>
+          <div class="inv-total-wrap">
+            <div class="inv-total">${inv.total}</div>
+            <div class="inv-total-label">Equipos</div>
+          </div>
+        </div>
+        <div class="inv-subitems">
+          ${inv.subitems.map(sub => {
+            const icons = { 
+              'CAEX': './img/icons/caex.png', 
+              'PALAS': './img/icons/pala.png', 
+              'TRACTOR': './img/icons/tractor.png', 
+              'REGADOR': './img/icons/regador.png', 
+              'MOTO': './img/icons/moto.png', 
+              'PERFO': './img/icons/perfo.png' 
+            };
+            return `
+              <div class="inv-subitem">
+                <img src="${icons[sub.label] || ''}" class="inv-subitem-icon" onerror="this.style.display='none'" />
+                <div class="inv-subitem-value">${sub.value}</div>
+                <div class="inv-subitem-label">${sub.label}</div>
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
-      <div class="inv-subitems">
-        ${inv.subitems.map(sub => {
-          const icons = { 
-            'CAEX': 'img/icons/caex.png', 
-            'PALAS': 'img/icons/pala.png', 
-            'TRACTOR': 'img/icons/tractor.png', 
-            'REGADOR': 'img/icons/regador.png', 
-            'MOTO': 'img/icons/moto.png', 
-            'PERFO': 'img/icons/perfo.png' 
-          };
-          return `<div class="inv-subitem">
-            <img src="${icons[sub.label] || ''}" class="inv-subitem-icon" onerror="this.style.display='none'" />
-            <div class="inv-subitem-value">${sub.value}</div>
-            <div class="inv-subitem-label">${sub.label}</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // Funciones auxiliares
@@ -93,7 +125,7 @@ function getStatusLabel(s) {
 function renderServerCard(s) {
   const status = getStatus(s.value, s.max, s);
   const pct = ((s.value / s.max) * 100).toFixed(1);
-  const osIcon = s.os === 'linux' ? 'img/icons/tux.png' : 'img/icons/w11.png';
+  const osIcon = s.os === 'linux' ? './img/icons/tux.png' : './img/icons/w11.png';
   return `
     <div class="server-card status-${status}">
       <div class="server-header">
@@ -119,6 +151,8 @@ function renderServerCard(s) {
 
 // Inicializar dashboard
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 Dashboard inicializando...');
+  
   document.getElementById('subtitle').textContent = CONFIG.subtitle;
   document.getElementById('footer').textContent = `${CONFIG.footerBrand} · ${CONFIG.title}`;
   
