@@ -29,7 +29,7 @@ async function cargarInventario() {
   console.log('🔄 Intentando cargar inventario...');
   
   try {
-    const response = await fetch('https://r0x.cl/hxgn/inventario.php');
+    const response = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://r0x.cl/hxgn/inventario.php'));
     
     console.log('Status:', response.status);
     
