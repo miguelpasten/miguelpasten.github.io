@@ -1,1 +1,85 @@
-JI GUORLD DMH
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hexagon - División Ministro Hales</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="bg-accents"></div>
+  
+  <div class="bg-geometry">
+    <div class="triangle-1"></div>
+    <div class="triangle-2"></div>
+    <div class="diagonal-line-1"></div>
+    <div class="diagonal-line-2"></div>
+    <div class="diagonal-line-3"></div>
+    <div class="hexagon hexagon-1"></div>
+    <div class="hexagon hexagon-2"></div>
+    <div class="hexagon hexagon-3"></div>
+    <div class="circle-pattern circle-1"></div>
+    <div class="circle-pattern circle-2"></div>
+    <div class="circle-pattern circle-3"></div>
+    <div class="horizontal-line h-line-1"></div>
+    <div class="horizontal-line h-line-2"></div>
+    <div class="horizontal-line h-line-3"></div>
+  </div>
+
+  <header class="header">
+    <img src="img/icons/logo_blk.png" alt="Hexagon" class="header-logo" />
+    <div>
+      <div class="header-title">📡 Ministro Hales</div>
+      <div class="header-subtitle" id="subtitle"></div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="section-title">Inventario de Equipos HV</div>
+    <div class="inventario-grid" id="inventarioGrid"></div>
+
+    <div class="servers-header-row">
+      <div class="servers-header-left">
+        <div class="section-title" style="margin-bottom: 0;">Servidores Físicos</div>
+        <div class="servers-status-bar">
+          <span class="servers-status-label">Estado:</span>
+          <div class="servers-status-legend">
+            <div class="servers-status-item">
+              <div class="servers-status-dot normal"></div>
+              <span>Normal</span>
+            </div>
+            <div class="servers-status-item">
+              <div class="servers-status-dot atencion"></div>
+              <span>Atención</span>
+            </div>
+            <div class="servers-status-item">
+              <div class="servers-status-dot critico"></div>
+              <span>Crítico</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="servers-header-right">
+        <div class="section-title" style="margin-bottom: 0;">Servidores Virtuales</div>
+      </div>
+    </div>
+
+    <div class="servers-layout">
+      <div class="servers-section">
+        <div class="fisicos-grid" id="fisicosGrid"></div>
+      </div>
+
+      <div class="servers-section">
+        <div class="virtuales-grid" id="virtualesGrid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span id="footer"></span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
